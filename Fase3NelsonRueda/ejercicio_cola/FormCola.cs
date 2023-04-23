@@ -60,16 +60,8 @@ namespace Fase3NelsonRueda
         private void btnColaEliminar_Click(object sender, EventArgs e)
         {
 
-            if (dgvColaInfractores.SelectedRows.Count > 0)
-            {
-                string identificacionSeleccionada = dgvColaInfractores.SelectedRows[0].Cells["columnaIdentificacion"].Value.ToString();
-                colaInfraccion.EliminarInfractor(identificacionSeleccionada);
-                ActualizarDataGridView();
-            }
-            else
-            {
-                MessageBox.Show("Por favor seleccione un registro para eliminar.");
-            }
+            colaInfraccion.EliminarInfractor();
+            ActualizarDataGridView();
 
         }
 
@@ -81,8 +73,16 @@ namespace Fase3NelsonRueda
 
         private void ActualizarDataGridView()
         {
-            dgvColaInfractores.DataSource = null;
 
+            
+            foreach (Infractor infractor in colaInfraccion.ObtenerInfractores())
+            {
+                dgvColaInfractores.Rows.Add(infractor.Identificacion, infractor.NombreCompleto, infractor.Direccion, infractor.Placa, infractor.TipoAutomotor, infractor.AnioMatricula, infractor.FechaComparendo, infractor.DiasDesdeExpedicion, infractor.ValorComparendo);
+            }
+        }
+
+        private void FormCola_Load(object sender, EventArgs e)
+        {
             // Crear las columnas del DataGridView
             DataGridViewTextBoxColumn columnaIdentificacion = new DataGridViewTextBoxColumn();
             columnaIdentificacion.HeaderText = "Identificación";
@@ -113,26 +113,14 @@ namespace Fase3NelsonRueda
             dgvColaInfractores.Columns.Add(columnaFechaComparendo);
 
             DataGridViewTextBoxColumn columnaDiasDesdeComparendo = new DataGridViewTextBoxColumn();
-            columnaFechaComparendo.HeaderText = "Dias desde el comparendo";
+            columnaDiasDesdeComparendo.HeaderText = "Días desde el comparendo";
             dgvColaInfractores.Columns.Add(columnaDiasDesdeComparendo);
 
             DataGridViewTextBoxColumn columnaValorComparendo = new DataGridViewTextBoxColumn();
-            columnaFechaComparendo.HeaderText = "Valor del comparendo";
+            columnaValorComparendo.HeaderText = "Valor del comparendo";
             dgvColaInfractores.Columns.Add(columnaValorComparendo);
 
-
-
-            // Limpia el DataGridView y lo actualiza con los registros actuales de la cola
-            dgvColaInfractores.Rows.Clear();
-            foreach (Infractor infractor in colaInfraccion.ObtenerInfractores())
-            {
-                dgvColaInfractores.Rows.Add(infractor.Identificacion, infractor.NombreCompleto, infractor.Direccion, infractor.Placa, infractor.TipoAutomotor, infractor.AnioMatricula, infractor.FechaComparendo, infractor.DiasDesdeExpedicion, infractor.ValorComparendo);
-            }
-             dgvColaInfractores.DataSource = colaInfraccion.ObtenerInfractores();
-        }
-
-        private void FormCola_Load(object sender, EventArgs e)
-        {
+            // Llamar a ActualizarDataGridView para llenar el DataGridView con los datos iniciales
             ActualizarDataGridView();
         }
 

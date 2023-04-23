@@ -126,6 +126,7 @@
             // 
             // cmbColaTipoVehiculo
             // 
+            this.cmbColaTipoVehiculo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbColaTipoVehiculo.FormattingEnabled = true;
             this.cmbColaTipoVehiculo.Items.AddRange(new object[] {
             " Automóvil",
@@ -149,6 +150,7 @@
             // 
             // cmbColaAnio
             // 
+            this.cmbColaAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbColaAnio.FormattingEnabled = true;
             this.cmbColaAnio.Items.AddRange(new object[] {
             "2010",
@@ -270,6 +272,7 @@
             this.Controls.Add(this.lblColaIdentificacion);
             this.Name = "FormCola";
             this.Text = "FormCola";
+            this.Load += new System.EventHandler(this.FormCola_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvColaInfractores)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

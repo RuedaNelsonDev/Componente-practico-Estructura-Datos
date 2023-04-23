@@ -21,28 +21,17 @@ namespace Fase3NelsonRueda.ejercicio_lista
             infractores.Enqueue(infractor);
         }
 
-        public bool EliminarInfractor(string identificacion)
+        public bool EliminarInfractor()
         {
-            bool infractorEncontrado = false;
-            Queue<Infractor> colaTemporal = new Queue<Infractor>();
-
-            while (infractores.Count > 0)
+            if (infractores.Count > 0)
             {
-                Infractor infractorActual = infractores.Dequeue();
-                if (infractorActual.Identificacion == identificacion)
-                {
-                    infractorEncontrado = true;
-                }
-                else
-                {
-                    colaTemporal.Enqueue(infractorActual);
-                }
+                infractores.Dequeue();
+                return true;
             }
-
-            // Restaurar la cola de infractores
-            infractores = colaTemporal;
-
-            return infractorEncontrado;
+            else
+            {
+                return false;
+            }
         }
 
 
